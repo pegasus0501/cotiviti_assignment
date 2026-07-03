@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Policy-to-Rule Intelligence POC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">PI</div>
+          <div>
+            <h1>Policy Intelligence</h1>
+            <p>POC for payer policy-to-rule review</p>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Workflow">
+          <a href="#workspace">Workspace</a>
+          <a href="#summary">Summary</a>
+          <a href="#requirements">Requirements</a>
+          <a href="#changes">Version changes</a>
+          <a href="#rules">Draft rules</a>
+        </nav>
+
+        <section class="sidebar-panel">
+          <h2>Demo Goal</h2>
+          <p>
+            Convert written policy language into analyst-reviewed summaries,
+            extracted requirements, version changes, and structured rule drafts.
+          </p>
+        </section>
+
+        <section class="sidebar-panel">
+          <h2>Controls</h2>
+          <ul>
+            <li>Source traceability</li>
+            <li>Deterministic pattern checks</li>
+            <li>Human approval status</li>
+          </ul>
+        </section>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Cotiviti-aligned Hackathon POC</p>
+            <h2>Healthcare Policy Analyzer</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="button secondary" id="loadSampleBtn" type="button">Load Sample Policies</button>
+            <button class="button primary" id="analyzeBtn" type="button">Analyze Policy</button>
+          </div>
+        </header>
+
+        <section class="workspace" id="workspace" aria-label="Policy workspace">
+          <div class="input-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Old Policy Version</h3>
+                <p>Paste the prior policy language.</p>
+              </div>
+              <span class="badge">Baseline</span>
+            </div>
+            <textarea id="oldPolicy" spellcheck="false" aria-label="Old policy text"></textarea>
+          </div>
+
+          <div class="input-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>New Policy Version</h3>
+                <p>Paste the updated policy language.</p>
+              </div>
+              <span class="badge accent">Target</span>
+            </div>
+            <textarea id="newPolicy" spellcheck="false" aria-label="New policy text"></textarea>
+          </div>
+        </section>
+
+        <section class="status-strip" aria-label="Analysis status">
+          <div>
+            <span id="coverageScore">0%</span>
+            <p>Extraction coverage</p>
+          </div>
+          <div>
+            <span id="changeCount">0</span>
+            <p>Policy changes</p>
+          </div>
+          <div>
+            <span id="ruleCount">0</span>
+            <p>Draft rules</p>
+          </div>
+          <div>
+            <span id="approvalStatus">Needs review</span>
+            <p>Analyst status</p>
+          </div>
+        </section>
+
+        <section class="results-grid">
+          <article class="result-panel wide" id="summary">
+            <div class="section-title">
+              <h3>Executive Summary</h3>
+              <button class="icon-button" data-copy-target="summaryOutput" title="Copy summary" type="button">Copy</button>
+            </div>
+            <div class="output prose" id="summaryOutput">
+              Load sample policies or paste policy text, then run analysis.
+            </div>
+          </article>
+
+          <article class="result-panel" id="requirements">
+            <div class="section-title">
+              <h3>Extracted Requirements</h3>
+              <button class="icon-button" data-copy-target="requirementsOutput" title="Copy requirements" type="button">Copy</button>
+            </div>
+            <div class="output" id="requirementsOutput"></div>
+          </article>
+
+          <article class="result-panel" id="changes">
+            <div class="section-title">
+              <h3>Version Changes</h3>
+              <button class="icon-button" data-copy-target="changesOutput" title="Copy changes" type="button">Copy</button>
+            </div>
+            <div class="output" id="changesOutput"></div>
+          </article>
+
+          <article class="result-panel wide" id="rules">
+            <div class="section-title">
+              <h3>Draft Rule Logic</h3>
+              <div class="segmented" role="tablist" aria-label="Rule output format">
+                <button class="segment active" data-rule-view="json" type="button">JSON</button>
+                <button class="segment" data-rule-view="ifthen" type="button">If/Then</button>
+                <button class="segment" data-rule-view="python" type="button">Python</button>
+              </div>
+            </div>
+            <pre class="code-output" id="rulesOutput"></pre>
+          </article>
+
+          <article class="result-panel wide">
+            <div class="section-title">
+              <h3>Validation and Review Queue</h3>
+              <button class="button secondary small" id="approveBtn" type="button">Mark Analyst Approved</button>
+            </div>
+            <div class="output" id="validationOutput"></div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
